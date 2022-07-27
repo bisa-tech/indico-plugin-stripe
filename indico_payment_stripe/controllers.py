@@ -6,7 +6,7 @@
     Controllers used by the plugin.
 
 """
-from __future__ import unicode_literals
+
 
 import stripe
 from flask import flash, redirect, request, Markup
