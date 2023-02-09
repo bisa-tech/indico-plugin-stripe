@@ -12,7 +12,7 @@
 RELEASE = False
 
 
-__version_info__ = ('0', '0', '2')
+__version_info__ = ('0', '0', '1')
 __version__ = '.'.join(__version_info__)
 __version__ += '-dev' if not RELEASE else ''
 

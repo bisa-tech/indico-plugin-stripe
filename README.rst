@@ -1,31 +1,26 @@
 indico-plugin-payment-stripe
 ============================
 
+**This fork uses Stripe's checkout instead of the v2 API, allowing it to be SCA-complaint.**
+
 `Stripe <https://stripe.com/>`_ payment support plugin for the `Indico conference management system <https://getindico.io>`_.
 
 This plugin was tested and developed using:
 
-* Indico version 2.1.7
-* Stripe API version 2018-11-02.
+* Indico version 3.2.0
+* Stripe API version 2022-11-15. (Stripe Python 5.0.0)
+* PostgresSQL
+* Redis
 
 Other versions of Indico and/or Stripe may or may not function as intended. We recommend that you test your integration
 thoroughly before using this plugin.
 
 See the `Stripe testing documentation <https://stripe.com/docs/testing>`_ for a testing guide.
 
-
-Issues
-------
-
-Check out our `issue tracker <https://github.com/neicnordic/indico-plugin-stripe/issues>`_ for a complete list of
-outstanding issues. We welcome any kind of contributions, from bug reports to pull requests.
-
-
 Requirements
 ------------
 
-* Python 2.7
-
+* Python 3.9
 
 Development
 -----------
@@ -37,18 +32,24 @@ In general, the following steps can be your guide for setting a local developmen
 
 .. code-block:: bash
 
+    # Install all requirements
+    $ brew install pyenv pyenv-virtualenv postgres redis
+
     # Clone the repository and cd into it
     $ git clone {repo-url}
     $ cd indico-payment-stripe
 
     # Create your virtualenv, using pyenv for example (highly recommended: https://github.com/pyenv/pyenv)
-    $ pyenv virtualenv 2.7.15 indico-plugin-stripe-dev
+    # Besides of pyenv you will need pyenv-virtualenv
+    $ pyenv install 3.9
+    $ pyenv virtualenv 3.9 indico-plugin-stripe-dev
+    $ pyenv activate indico-plugin-stripe-dev
 
     # From within the root directory and with an active virtualenv, install the dependencies and package itself
-    $ pip install -e .[dev]
+    $ pip3 install -e . # To install dev dependencies run `pip3 install -r requirements-dev.txt`
 
     # Check that everything works by running the tests
-    $ tox
+    $ tox -i https://pypi.org/simple
 
 
 License

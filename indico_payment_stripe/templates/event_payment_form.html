@@ -2,32 +2,15 @@
 <html>
   <head>
     <title>Payment Form</title>
+    <style>
+      #checkout-button {
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
   </head>
   <body>
-    <dl class="i-data-list">
-      <dt>{% trans %}First name{% endtrans %}</dt>
-      <dd>{{ registration.first_name }}</dd>
-      <dt>{% trans %}Last name{% endtrans %}</dt>
-      <dd>{{ registration.last_name }}</dd>
-      <dt>{% trans %}Total amount{% endtrans %}</dt>
-      <dd>{{ format_currency(amount, currency, locale=session.lang) }}</dd>
-      <dt></dt>
-      <form action="{{ handler_url }}" method="POST">
-        <script
-          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="{{ pub_key }}"
-          data-amount="{{ stripe_amount }}"
-          data-currency="{{ currency }}"
-          data-name="{{ event_settings.org_name }}"
-          data-description="{{ event_settings.description }}"
-          data-locale="auto"
-          data-zip-code="{{ event_settings.require_postal_code|string|lower }}"
-          data-email="{{ user_email }}"
-          data-allow-remember-me="false"
-          data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
-        </script>
-      </form>
-      </dd>
-    </dl>
+    <h4>Clicking on the <strong>Pay now</strong> button you will get redirected to Stripe in order to complete your transaction.</h4>
+    <a id="checkout-button" href="{{ stripe_redirect_url }}" class="action-button next highlight">Pay now</a>
   </body>
 </html>
