@@ -58,12 +58,17 @@ class RHStripe(RH):
     def _process(self):
         payment_intent_id = self.session.payment_intent
         payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
-        if len(payment_intent.charges.data) != 1:
-            raise BadRequest("Charges data doesn't contain only 1 item.")
-        charge = payment_intent.charges.data[0]
+
+        try:
+            if payment_intent.latest_charge:
+                charge = stripe.Charge.retrieve(payment_intent.latest_charge)
+        except NameError:
+            raise BadRequest("No charges for this checkout session.")
 
         transaction_data = {}
         transaction_data['charge_id'] = charge['id']
+        outcome = charge['outcome']
+        outc_type = outcome['type']
         register_transaction(
             registration=self.registration,
             amount=conv_from_stripe_amount(
