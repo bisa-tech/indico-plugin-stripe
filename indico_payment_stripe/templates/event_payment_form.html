@@ -11,9 +11,14 @@
   </head>
   <body>
     {% if registration.state.name == 'complete' %}
-      <h4>
-        Your registration has been completed and doesn't require payment.
-      </h4>
+      <h4>Your registration has been completed and doesn't require payment.</h4>
+      <p>You should have received a confirmation email.</p>
+      <p>
+        To manage your registration follow this link:
+        <a href="{{ url_for('event_registration.display_regform', registration.locator.registrant, reload=true) }}">
+            Manage my registration
+        </a>
+      </p>
     {% else %}
       <h4>Clicking on the <strong>Pay now</strong> button you will get redirected to Stripe in order to complete your transaction.</h4>
       <a id="checkout-button" href="{{ stripe_redirect_url }}" class="action-button next highlight">Pay now</a>
