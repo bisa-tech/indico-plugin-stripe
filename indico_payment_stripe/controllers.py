@@ -89,6 +89,7 @@ class RHStripe(RH):
         flash(flash_msg, 'success')
         reg_url = url_for(
             'event_registration.display_regform',
-            self.registration.locator.registrant
+            self.registration.locator.registrant,
+            reload=True
         )
         return redirect(reg_url)
