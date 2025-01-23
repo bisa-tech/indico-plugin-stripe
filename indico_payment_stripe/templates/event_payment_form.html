@@ -10,7 +10,13 @@
     </style>
   </head>
   <body>
-    <h4>Clicking on the <strong>Pay now</strong> button you will get redirected to Stripe in order to complete your transaction.</h4>
-    <a id="checkout-button" href="{{ stripe_redirect_url }}" class="action-button next highlight">Pay now</a>
+    {% if registration.state.name == 'complete' %}
+      <h4>
+        Your registration has been completed and doesn't require payment.
+      </h4>
+    {% else %}
+      <h4>Clicking on the <strong>Pay now</strong> button you will get redirected to Stripe in order to complete your transaction.</h4>
+      <a id="checkout-button" href="{{ stripe_redirect_url }}" class="action-button next highlight">Pay now</a>
+    {% endif %}
   </body>
 </html>
