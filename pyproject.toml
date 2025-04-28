@@ -1,0 +1,40 @@
+[build-system]
+requires = ['hatchling==1.25.0']
+build-backend = 'hatchling.build'
+
+[project]
+name = 'indico-plugin-payment-stripe'
+version = '0.4.0'
+description = 'Stripe payment support plugin for the Indico conference management system'
+license = {text = 'MIT'}
+authors = [{name = 'Agile Collective', email = 'support@agile.coop'}]
+classifiers = [
+    'Environment :: Plugins',
+    'Environment :: Web Environment',
+    'Programming Language :: Python :: 3.12',
+]
+requires-python = '>=3.12.2, <3.13'
+dependencies = [
+    'indico>=3.3', 
+    'stripe==5.0.0',
+    'requests[security]'
+]
+
+[project.urls]
+GitLab = 'https://github.com/bisa-tech/indico-plugin-stripe'
+
+[project.entry-points.'indico.plugins']
+payment_stripe = 'indico_payment_stripe.plugin:StripePaymentPlugin'
+
+[tool.hatch.build]
+packages = ['indico_payment_stripe']
+exclude = [
+    '*.no-header',
+    '.keep',
+    # exclude original client sources (they are all included in source maps anyway)
+    # 'indico_*/client/',
+    # no need for tests outside development
+    # 'test_snapshots/',
+    # 'tests/',
+    # '*_test.py',
+]
